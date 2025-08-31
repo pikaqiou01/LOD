@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>LOR 手机制卡器</title>
+<link rel="manifest" href="data:application/manifest+json,{\"name\":\"LOR制卡器\",\"short_name\":\"LOR卡\",\"start_url\":\"./\",\"display\":\"standalone\",\"theme_color\":\"#007aff\",\"background_color\":\"#fff\",\"icons\":[{\"src\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=\",\"sizes\":\"192x192\"}]}"/>
+<style>
+*{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial}
+body{margin:0;background:#f2f2f7;padding:8px}
+.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:12px}
+label{display:block;margin:6px 0 2px;font-size:15px}
+input,select,textarea{width:100%;padding:8px;font-size:15px;border:1px solid #ccc;border-radius:6px}
+button{width:100%;padding:10px;margin-top:8px;border:none;border-radius:6px;font-size:16px}
+.primary{background:#007aff;color:#fff}
+.dice-row{display:flex;align-items:center;margin:4px 0}
+.dice-row select{width:28%}
+.dice-row input{width:20%}
+.dice-row input.effect{width:45%}
+.dice-row button{width:7%;background:#ff3b30;color:#fff;margin-left:4px}
+</style>
+</head>
+<body>
+<h2 style="text-align:center;margin:8px 0">LOR 手机制卡器</h2>
+
+<!-- 卡片设置 -->
+<div class="card">
+  <label>名称<input id="name" value="狂徒的愚行"></label>
+  <label>费用<input id="cost" type="number" value="3"></label>
+  <label>等级
+    <select id="grade">
+      <option>平装</option><option>精装</option><option>限定</option><option>艺术</option>
+    </select>
+  </label>
+  <label>卡图<input type="file" id="artInput" accept="image/*"></label>
+
+  <label><input type="checkbox" id="cbEffect" checked> 显示效果文本</label>
+  <label id="lblEffect" style="display:block">效果
+    <textarea id="effect">造成5点伤害并附加2层流血。</textarea>
+  </label>
+
+  <label>骰子（逐行添加）</label>
+  <div id="diceList"></div>
+  <button class="primary" onclick="addDiceRow()">＋ 添加骰子</button>
+</div>
+
+<!-- 按钮 -->
+<button class="primary" onclick="renderCard()">生成卡片</button>
+<button onclick="downloadCard()">下载 PNG</button>
+
+<canvas id="cv" width="744" height="1084"></canvas>
+
+<script src="lor.js"></script>
+</body>
+</html>
